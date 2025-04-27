@@ -1,24 +1,43 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Full-Screen Image</title>
-    <style>
-        body, html {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-        }
-        img {
-            display: block;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-    </style>
-</head>
-<body>
-    <img src="https://postimg.cc/FY0Znx6h" alt="Full-Screen Image">
-</body>
-</html>
+import matplotlib.pyplot as plt
+import numpy as np
+
+# 创建画布
+fig, ax = plt.subplots()
+ax.set_aspect('equal')
+ax.set_xlim(-0.1, 1.1)
+ax.set_ylim(-0.1, 1.1)
+
+# 正方形边界
+square = plt.Rectangle((0, 0), 1, 1, fill=False, edgecolor='black', linewidth=2)
+ax.add_patch(square)
+
+# 大三角形
+big_tri1 = plt.Polygon([[0, 0], [1, 0], [0, 1]], color='lightblue', edgecolor='black')
+big_tri2 = plt.Polygon([[1, 1], [1, 0], [0, 1]], color='lightgreen', edgecolor='black')
+ax.add_patch(big_tri1)
+ax.add_patch(big_tri2)
+
+# 中三角形
+mid_tri = plt.Polygon([[0, 0], [0.5, 0], [0.5, 0.5]], color='orange', edgecolor='black')
+ax.add_patch(mid_tri)
+
+# 扇形
+theta = np.linspace(np.pi/4, np.pi/2, 100)  # 90度弧
+radius = 1/np.sqrt(2)
+x = 1 + radius * np.cos(theta)
+y = 1 + radius * np.sin(theta)
+fan = plt.Polygon(np.vstack(([1, 1], np.column_stack((x, y))), color='red', edgecolor='black')
+ax.add_patch(fan)
+
+# 弧形补块
+arc_complement = plt.Polygon([[1, 0], [0, 1], [0.293, 1], [1, 0.293]], color='purple', edgecolor='black')
+ax.add_patch(arc_complement)
+
+# 模块化小三角形
+small_tri1 = plt.Polygon([[0.5, 0], [0.25, 0.25], [0.5, 0.5]], color='yellow', edgecolor='black')
+small_tri2 = plt.Polygon([[0, 1], [0.25, 0.25], [0.5, 0.5]], color='lightpink', edgecolor='black')
+ax.add_patch(small_tri1)
+ax.add_patch(small_tri2)
+
+# 显示
+plt.show()
